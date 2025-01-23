@@ -1,3 +1,29 @@
+' ==============================================
+' SolidWorks VBA Macro: Rotate Assembly
+' ==============================================
+' Description:
+' This macro automates the rotation of an assembly 
+' in SolidWorks with smooth and professional visuals. 
+' It starts with an isometric view, zooms to fit the 
+' model, and continuously rotates the assembly about 
+' the X-axis until interrupted.
+'
+' How to Use:
+' 1. Open an assembly in SolidWorks.
+' 2. Go to Tools > Macro > New to create a new VBA macro.
+' 3. Paste this code into the macro editor.
+' 4. Save and run the macro.
+' 5. Press any key or click outside of SolidWorks to stop the rotation.
+'
+' Requirements:
+' - SolidWorks 2024 or compatible version.
+' - An active assembly document.
+'
+' Author:
+' CADGuardian
+'
+' ==============================================
+
 Dim swApp As SldWorks.SldWorks
 Dim model As SldWorks.ModelDoc2
 Dim view As SldWorks.ModelView
