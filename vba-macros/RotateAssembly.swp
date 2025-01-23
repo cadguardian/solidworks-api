@@ -46,8 +46,6 @@ Do While continueRotation
     DoEvents
 Loop
 
-
-
     ' Clear the message on screen
     ClearOverlay
 
@@ -75,5 +73,3 @@ Sub Pause(seconds As Double)
         DoEvents
     Loop
 End Sub
-
-
