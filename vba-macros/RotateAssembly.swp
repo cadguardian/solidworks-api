@@ -1,0 +1,79 @@
+Dim swApp As SldWorks.SldWorks
+Dim model As SldWorks.ModelDoc2
+Dim view As SldWorks.ModelView
+Dim continueRotation As Boolean
+
+Sub Main()
+    ' Initialize SolidWorks application
+    Set swApp = Application.SldWorks
+    Set model = swApp.ActiveDoc
+
+    ' Check if a document is open
+    If model Is Nothing Then
+        MsgBox "No active document found. Please open an assembly.", vbExclamation, "Error"
+        Exit Sub
+    End If
+
+    ' Ensure the document is an assembly
+    If model.GetType <> swDocASSEMBLY Then
+        MsgBox "This macro only works on assemblies.", vbExclamation, "Error"
+        Exit Sub
+    End If
+
+    ' Get the active view
+    Set view = model.ActiveView
+    
+    ' Set the view to Isometric
+model.ShowNamedView2 "*Isometric", -1
+' Zoom to fit the model in the view
+model.ViewZoomtofit2
+
+
+    ' Initialize rotation loop
+    continueRotation = True
+    ShowStopMessage
+
+' Continuous rotation loop
+Do While continueRotation
+    ' Rotate the view about the X-axis
+    view.RotateAboutCenter 0, 0.05 ' Small angle increment for smoother rotation
+    ' Pause to control speed of rotation
+    Pause (0.1) ' Slightly slower rotation for a professional appearance
+    ' Check for key press to stop
+'    If Not swApp.HasFocus Then
+'        continueRotation = False
+'    End If
+    DoEvents
+Loop
+
+
+
+    ' Clear the message on screen
+    ClearOverlay
+
+    MsgBox "Rotation stopped.", vbInformation, "Done"
+End Sub
+
+' Display a large text message instructing the user to stop rotation
+Sub ShowStopMessage()
+'    model.ClearOverlay
+'    model.AddOverlayText "Press any key or click away to stop rotation", _
+        20, swOverlayTextSize_e.swOverlayTextSize_Large, _
+        swOverlayTextPosition_e.swOverlayTextPosition_TopCenter, 0
+End Sub
+
+' Clear overlay text from the screen
+Sub ClearOverlay()
+    model.ClearOverlay
+End Sub
+
+' Simulate a pause in seconds
+Sub Pause(seconds As Double)
+    Dim startTime As Double
+    startTime = Timer
+    Do While Timer < startTime + seconds
+        DoEvents
+    Loop
+End Sub
+
+
